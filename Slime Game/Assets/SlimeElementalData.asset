@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b902a35cf43b09c40bfd867bc034ac28, type: 3}
+  m_Name: SlimeElementalData
+  m_EditorClassIdentifier: 
+  neutralTextures:
+  - {fileID: 2800000, guid: b07a5ceacbd732443a151e2c21110f99, type: 3}
+  - {fileID: 2800000, guid: 0a12a60641b48ca49891cea8896be915, type: 3}
+  - {fileID: 2800000, guid: bfada6e8d4ddb324c91f75a0fed0587f, type: 3}
+  - {fileID: 2800000, guid: 3ce465f4ff614a4429189c4cfb81b051, type: 3}
+  elementInfos:
+  - element: 0
+    textures: []
+    colors:
+    - {r: 1, g: 0, b: 0, a: 1}
+    - {r: 0.5283019, g: 0, b: 0.14907539, a: 1}
+    - {r: 1, g: 0.58085513, b: 0, a: 1}
+    - {r: 1, g: 0.64375573, b: 0.51320755, a: 1}
+    - {r: 0.49056602, g: 0.48047802, b: 0.4229975, a: 1}
+    firstName:
+    - Spicy
+    - Hot
+    - Flaming
+    - Burning
+    - Charred
+    lastName:
+    - Lava
+    - Flame
+    - Coal
+    - Ash
+    - Match
+  - element: 1
+    textures: []
+    colors:
+    - {r: 0, g: 1, b: 0.8398278, a: 1}
+    - {r: 0, g: 0.5754717, b: 0.4829449, a: 1}
+    - {r: 0, g: 0.021892548, b: 1, a: 1}
+    - {r: 0.12605467, g: 0.0019579534, b: 0.5188679, a: 1}
+    - {r: 0.014898515, g: 0.2924528, b: 0.24198838, a: 1}
+    firstName:
+    - Slushy
+    - Swimming
+    - Wet
+    - Gooey
+    - Jiggly
+    lastName:
+    - Jelly
+    - Balloon
+    - Drip
+    - Lake
+    - Puddle
+  - element: 2
+    textures: []
+    colors:
+    - {r: 0, g: 1, b: 0.18831158, a: 1}
+    - {r: 0, g: 0.509434, b: 0.09589345, a: 1}
+    - {r: 0.7264151, g: 0.32285857, b: 0, a: 1}
+    - {r: 0.0021359494, g: 0.5660378, b: 0.4263557, a: 1}
+    - {r: 0.9150943, g: 0.7545212, b: 0.7766145, a: 1}
+    - {r: 0.58983856, g: 0.6226415, b: 0.36066213, a: 1}
+    firstName:
+    - Grassy
+    - Fruity
+    - Fresh
+    - Fresh
+    - Rocky
+    lastName:
+    - Root
+    - Leaf
+    - Flower
+    - Branch
+    - Sapling
+    - Tree
+    - Boulder
+    - Matcha
+  - element: 3
+    textures: []
+    colors:
+    - {r: 0.920565, g: 1, b: 0, a: 1}
+    - {r: 0.9811321, g: 0.97875416, b: 0.68864363, a: 1}
+    - {r: 1, g: 0.87459564, b: 0, a: 1}
+    - {r: 0.8301887, g: 0.8108325, b: 0.55920255, a: 1}
+    - {r: 0.13333334, g: 0.20428054, b: 0.32941177, a: 1}
+    - {r: 0.25655037, g: 0.2626828, b: 0.2735849, a: 1}
+    firstName:
+    - Shocking
+    - Electrified
+    - Powered
+    - Stormy
+    - Breezy
+    lastName:
+    - Gust
+    - Sparky
+    - Bolt
+    - Hurricane
+    - Cloud
+  - element: 4
+    textures: []
+    colors:
+    - {r: 1, g: 1, b: 1, a: 1}
+    - {r: 0.5886792, g: 1, b: 0.9585464, a: 1}
+    - {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+    - {r: 0.754717, g: 0.64416724, b: 0.14524738, a: 1}
+    - {r: 0.71132076, g: 1, b: 0.8161444, a: 1}
+    firstName:
+    - Bright
+    - Shining
+    - Light
+    - Holy
+    - Powerful
+    - Reflective
+    lastName:
+    - Angel
+    - Sun
+    - Bulb
+    - Beam
+    - Prism
+  - element: 5
+    textures:
+    - {fileID: 2800000, guid: 3eedeea24c7e2e445828114a4cd7190b, type: 3}
+    colors:
+    - {r: 0, g: 0, b: 0, a: 1}
+    - {r: 0.254717, g: 0, b: 0, a: 1}
+    - {r: 0.31132078, g: 0.30368462, b: 0.30368462, a: 1}
+    - {r: 0.14919952, g: 0, b: 0.3962264, a: 1}
+    - {r: 0.36169097, g: 0, b: 0.6509434, a: 1}
+    - {r: 0.20754719, g: 0.15742259, b: 0.15742259, a: 1}
+    firstName:
+    - Dark
+    - Shadowed
+    - Hidden
+    - Creepy
+    - Ghoulish
+    - Undead
+    lastName:
+    - Devil
+    - Shadow
+    - Shade
+    - Ghost
+    - Spirit

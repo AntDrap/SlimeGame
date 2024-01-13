@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44e972ca1af59046a0e4c2228a0064c, type: 3}
+  m_Name: SlimePreset
+  m_EditorClassIdentifier: 
+  geneticPreset:
+    topColor: {r: 0.5226415, g: 0.94468254, b: 1, a: 1}
+    bottomColor: {r: 0, g: 0, b: 1, a: 1}
+    gradientOffset: -0.5
+    skinHeight: 6
+    skinDensity: 5
+    shine: 5
+    brightness: 2
+    size: 2
+    skinTexture: 0
+    mood: 1
