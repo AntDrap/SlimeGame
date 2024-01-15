@@ -9,7 +9,7 @@ public class UIBehavior : MonoBehaviour
     public GameObject mainGameUIHolder;
     public GameObject slimeUIHolder;
     public Image elementOne, elementTwo;
-    public TextMeshProUGUI slimeName;
+    public TextMeshProUGUI slimeName, FPSText;
 
     public GameObject inventoryUIHolder, inventorySlotPrefab;
     public RectTransform inventoryPanel;
@@ -33,6 +33,53 @@ public class UIBehavior : MonoBehaviour
     {
         CloseSlimeUI();
         CloseInventory();
+
+        StartCoroutine(UpdateFPSCounter());
+
+        IEnumerator UpdateFPSCounter()
+        {
+            int times = 0;
+            int total = 0;
+            int currentAverage = 0;
+            int min = int.MaxValue;
+            int max = int.MinValue;
+            int min15 = int.MaxValue;
+            int max15 = int.MinValue;
+
+            while(true)
+            {
+                int number = ((int)(1f / Time.unscaledDeltaTime));
+                FPSText.text = "Current: " + number.ToString();
+
+                total += number;
+                times++;
+
+                if(times >= 30)
+                {
+                    currentAverage = Mathf.RoundToInt(total / times);
+                    min15 = int.MaxValue;
+                    max15 = int.MinValue;
+                    times = 0;
+                    total = 0;
+                }
+
+                FPSText.text += "\n15s Avg: " + currentAverage;
+
+                min15 = Mathf.Min(min15, number);
+                max15 = Mathf.Max(max15, number);
+
+                FPSText.text += "\n15s Max: " + max15;
+                FPSText.text += "\n15s Min: " + min15;
+
+                min = Mathf.Min(min, number);
+                max = Mathf.Max(max, number);
+
+                FPSText.text += "\nMax: " + max;
+                FPSText.text += "\nMin: " + min;
+
+                yield return new WaitForSeconds(0.25f);
+            }
+        }
     }
 
     public static void ToggleMainCamera(bool toggle)
