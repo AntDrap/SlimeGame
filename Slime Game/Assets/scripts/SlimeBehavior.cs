@@ -37,7 +37,7 @@ public class SlimeBehavior : MonoBehaviour
 
         if(!displaySlime)
         {
-            StartCoroutine(HoppingCoroutine());
+            //StartCoroutine(HoppingCoroutine());
         }
     }
 
