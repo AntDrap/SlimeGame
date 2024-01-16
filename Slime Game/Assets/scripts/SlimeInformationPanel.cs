@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class SlimeInformationPanel : MonoBehaviour
 {
+    public RenderTexture renderTexture;
     public Image elementOne, elementTwo;
     public Camera slimeCamera;
     public SlimeBehavior displaySlime;
@@ -31,6 +32,8 @@ public class SlimeInformationPanel : MonoBehaviour
     public void Start()
     {
         gameObject.SetActive(false);
+        slimeCamera.gameObject.SetActive(false);
+        renderTexture.DiscardContents(true, true);
     }
 
     public void SetSlime(SlimeInformation slime)
@@ -73,6 +76,8 @@ public class SlimeInformationPanel : MonoBehaviour
         }
 
         UIBehavior.ToggleMainCamera(true);
+        slimeCamera.gameObject.SetActive(false);
+        renderTexture.DiscardContents(true, true);
     }
 
     private void OnEnable()

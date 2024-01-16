@@ -138,7 +138,7 @@ public class UIBehavior : MonoBehaviour
 
     public void OpenInventory()
     {
-        GameController.instance.inputBlocked = true;
+        GameController.BlockInput(true);
         ToggleMainUI(false);
         inventoryUIHolder.SetActive(true);
         ToggleMainCamera(false);
@@ -171,6 +171,6 @@ public class UIBehavior : MonoBehaviour
     {
         inventoryUIHolder.SetActive(false);
         ToggleMainUI(true);
-        GameController.instance.inputBlocked = false;
+        GameController.BlockInput(false);
     }
 }

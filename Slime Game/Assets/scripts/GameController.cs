@@ -158,4 +158,12 @@ public class GameController : MonoBehaviour
         SaveManager.EraseSaveData();
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
+
+    public static void BlockInput(bool toggle)
+    {
+        if(instance)
+        {
+            instance.inputBlocked = toggle;
+        }
+    }
 }
