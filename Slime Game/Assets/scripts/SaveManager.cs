@@ -49,8 +49,15 @@ public static class SaveManager
         }
         else
         {
-            playerInformation = JsonConvert.DeserializeObject<PlayerInformation>(File.ReadAllText(gameSavePath));
-            fieldInformation = JsonConvert.DeserializeObject<FieldInformation>(File.ReadAllText(fieldSavePath));
+            try
+            {
+                playerInformation = JsonConvert.DeserializeObject<PlayerInformation>(File.ReadAllText(gameSavePath));
+                fieldInformation = JsonConvert.DeserializeObject<FieldInformation>(File.ReadAllText(fieldSavePath));
+            }
+            catch
+            {
+                EraseSaveData();
+            }
         }
     }
 

@@ -90,13 +90,18 @@ public class SlimeBehavior : MonoBehaviour
         slimeMaterial.SetColor("_" + nameof(SlimeInformation.topColor), slimeInformation.GetTopColor());
         slimeMaterial.SetColor("_" + nameof(SlimeInformation.bottomColor), slimeInformation.GetBottomColor());
 
-        slimeMaterial.SetFloat("_" + nameof(SlimeInformation.shine), slimeInformation.shine);
+        for (int i = 0; i < Enum.GetValues(typeof(SlimeInformation.SkinTexture)).Length; i++)
+        {
+            SlimeInformation.SkinTexture skinTexture = (SlimeInformation.SkinTexture)i;
 
-        slimeMaterial.DisableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + SlimeInformation.SkinTexture.Smooth.ToString().ToUpper());
-        slimeMaterial.DisableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + SlimeInformation.SkinTexture.Rough.ToString().ToUpper());
-        slimeMaterial.DisableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + SlimeInformation.SkinTexture.Wavy.ToString().ToUpper());
-        slimeMaterial.DisableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + SlimeInformation.SkinTexture.Rocky.ToString().ToUpper());
-        slimeMaterial.EnableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + slimeInformation.skinTexture.ToString().ToUpper());
+            if (!slimeInformation.skinTexture.Equals(skinTexture))
+            {
+                slimeMaterial.DisableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + skinTexture.ToString().ToUpper());
+                continue;
+            }
+
+            slimeMaterial.EnableKeyword("_" + nameof(SlimeInformation.skinTexture).ToUpper() + "_" + skinTexture.ToString().ToUpper());
+        }
 
         slimeMaterial.SetTexture("_" + nameof(SlimeInformation.slimeTexture), GameController.instance.slimeElementalData.GetFace(slimeInformation.slimeTexture));
 
@@ -104,8 +109,10 @@ public class SlimeBehavior : MonoBehaviour
 
         for(int i = 0; i < springs.Length; i++)
         {
+            springs[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+            springs[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             springs[i].spring = solidity;
-            springs[i].connectedAnchor = originalAnchors[i] * slimeInformation.size;
+            springs[i].connectedAnchor = originalAnchors[i];
             springs[i].connectedBody.transform.localPosition = originalPositions[i];
         }
     }
@@ -132,6 +139,10 @@ public class SlimeBehavior : MonoBehaviour
 
             for (int i = 0; i < springs.Length; i++)
             {
+                springs[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                springs[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                springs[i].spring = solidity;
+                springs[i].connectedAnchor = originalAnchors[i];
                 springs[i].connectedBody.transform.localPosition = originalPositions[i];
             }
 
@@ -198,8 +209,6 @@ public class SlimeBehavior : MonoBehaviour
                 slime.slimeInformation.topColor = SlimeInformation.ConvertColor(slimeMaterial.GetColor("_" + nameof(SlimeInformation.topColor)));
                 slime.slimeInformation.bottomColor = SlimeInformation.ConvertColor(slimeMaterial.GetColor("_" + nameof(SlimeInformation.bottomColor)));
 
-                slime.slimeInformation.shine = slimeMaterial.GetFloat("_" + nameof(SlimeInformation.shine));
-
                 slime.slimeInformation.skinTexture = (SlimeInformation.SkinTexture) slimeMaterial.GetFloat("_" + nameof(SlimeInformation.skinTexture).ToUpper());
 
                 EditorUtility.SetDirty(slime);
@@ -240,14 +249,12 @@ public class SlimeInformation
     public float[] topColor = new float[] { 1, 1, 1 };
     public float[] bottomColor = new float[] { 1, 1, 1 };
 
-    public float shine;
     public float size;
 
     public SkinTexture skinTexture;
 
     private Dictionary<string, StatRange> statRanges = new Dictionary<string, StatRange>()
     {
-        {nameof(shine), new StatRange(1, 0, 5, 0.2f) },
         {nameof(size), new StatRange(1, 0.5f, 2.5f, 0.2f) },
     };
 
@@ -325,7 +332,6 @@ public class SlimeInformation
         slimeTexture = GameController.instance.slimeElementalData.GetFace(elementOne, elementTwo);
         skinTexture = (SkinTexture)(UnityEngine.Random.Range(0, 4));
 
-        shine = statRanges[nameof(shine)].GetRandom();
         size = statRanges[nameof(size)].GetRandom();
 
         slimeName = GameController.instance.slimeElementalData.GetName(elementOne, elementTwo);
@@ -338,7 +344,6 @@ public class SlimeInformation
 
         skinTexture = SkinTexture.Smooth;
 
-        shine = statRanges[nameof(shine)].defaultValue;
         size = statRanges[nameof(size)].defaultValue;
     }
 
@@ -363,7 +368,6 @@ public class SlimeInformation
 
         slimeTexture = (UnityEngine.Random.Range(0,2) == 0 ? parentOne.slimeTexture : parentTwo.slimeTexture);
 
-        shine = statRanges[nameof(shine)].GenerateFloat(parentOne.shine, parentTwo.shine);
         size = statRanges[nameof(size)].GenerateFloat(parentOne.size, parentTwo.size);
 
         skinTexture = new SkinTexture[] { parentOne.skinTexture, parentTwo.skinTexture }[UnityEngine.Random.Range(0, 2)];
@@ -376,7 +380,6 @@ public class SlimeInformation
         
         skinTexture = baseGenetics.skinTexture;
 
-        shine = baseGenetics.shine;
         size = baseGenetics.size;
     }
 

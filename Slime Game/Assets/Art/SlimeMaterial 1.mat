@@ -13,7 +13,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _SKINTEXTURE_WAVY
+  - _SKINTEXTURE_ROCKY
   m_InvalidKeywords:
   - _BOTTOMTEXTURE_STATIC
   - _MOOD_HAPPY
@@ -159,7 +159,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SKINTEXTURE: 2
+    - _SKINTEXTURE: 3
     - _Shine: 29.83
     - _SkinDensity: 12
     - _SkinHeight: -0.83
@@ -175,7 +175,7 @@ Material:
     - _a: 2
     - _brightness: 1
     - _gradientOffset: 0.62
-    - _shine: 1
+    - _shine: 5
     - _skinDensity: 100
     - _skinHeight: 6
     m_Colors:
@@ -186,7 +186,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TopColor: {r: 0, g: 0.17324588, b: 1, a: 1}
     - _bottomColor: {r: 0, g: 1, b: 0.08948994, a: 1}
-    - _topColor: {r: 0.8773585, g: 0.2682765, b: 0.25161976, a: 1}
+    - _topColor: {r: 0, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5285400827406042885
 MonoBehaviour:

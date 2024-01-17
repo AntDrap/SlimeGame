@@ -205,10 +205,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 5
+  m_Height: 20
   m_Direction: 0
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &691670279125081876
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +291,6 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    shine: 1
     size: 1
     skinTexture: 0
   childSlimePrefab: {fileID: 691670279125081876}
@@ -314,15 +313,15 @@ MonoBehaviour:
   - {fileID: 3589853246297938301}
   - {fileID: 4848721183258871286}
   originalAnchors:
-  - {x: 0, y: -1.9999999, z: 0.00000023841858}
-  - {x: -0.011448383, y: -1.5082774, z: -0.7781899}
-  - {x: -0.011449058, y: -1.5017226, z: 0.77819}
-  - {x: -0.008277932, y: -1.5485518, z: -0.7781896}
-  - {x: 0.77818954, y: -1.4514486, z: 0.008277535}
-  - {x: -0.0024918318, y: -1.829953, z: -0.77818966}
-  - {x: 0.25017405, y: -1.8305166, z: -0.77818966}
-  - {x: -0.0003337263, y: -1.8241527, z: 0.77818966}
-  - {x: -0.77819, y: -1.8066577, z: 0.24444419}
+  - {x: 0, y: -19.999998, z: 0.0000023841858}
+  - {x: -0.11448383, y: -15.082774, z: -7.781899}
+  - {x: -0.114490576, y: -15.017225, z: 7.7819004}
+  - {x: -0.08277932, y: -15.4855175, z: -7.781896}
+  - {x: 7.7818956, y: -14.514485, z: 0.082775354}
+  - {x: -0.024918318, y: -18.29953, z: -7.7818966}
+  - {x: 2.5017405, y: -18.305166, z: -7.7818966}
+  - {x: -0.003337264, y: -18.241531, z: 7.7818966}
+  - {x: -7.7819004, y: -18.066576, z: 2.4444418}
   originalPositions:
   - {x: -0, y: 0, z: 2}
   - {x: 0.011448383, y: 1.5082774, z: 0.7781899}
@@ -371,8 +370,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 7909512196257609716}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 2}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: 0, y: -19.999998, z: 0.0000023841858}
   serializedVersion: 2
   m_Spring: 10
   m_Damper: 1
@@ -395,8 +394,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 8938347012979088360}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.11448383, y: -15.082774, z: -7.781899}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -419,8 +418,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 8582032115189742589}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.114490576, y: -15.017225, z: 7.7819004}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -443,8 +442,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 1969918305270371163}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.08277932, y: -15.4855175, z: -7.781896}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -467,8 +466,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 5551101382868421636}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: 7.7818956, y: -14.514485, z: 0.082775354}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -491,8 +490,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 6415069914904956073}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.024918318, y: -18.29953, z: -7.7818966}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -515,8 +514,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 6445043752498134883}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: 2.5017405, y: -18.305166, z: -7.7818966}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -539,8 +538,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 3109755240770081250}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.003337264, y: -18.241531, z: 7.7818966}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -563,8 +562,8 @@ SpringJoint:
   m_ConnectedBody: {fileID: 182552578137363151}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -7.7819004, y: -18.066576, z: 2.4444418}
   serializedVersion: 2
   m_Spring: 100
   m_Damper: 0.2
@@ -699,10 +698,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 5
+  m_Height: 20
   m_Direction: 2
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1592435841332376049
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +817,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 4.29
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3109755240770081250
 Rigidbody:
@@ -962,7 +961,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 4.29
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &182552578137363151
 Rigidbody:
@@ -1044,7 +1043,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 4.29
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6445043752498134883
 Rigidbody:
@@ -1184,10 +1183,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 5
+  m_Height: 20
   m_Direction: 0
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6002833521978413986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1384,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 4.29
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6415069914904956073
 Rigidbody:
@@ -1494,10 +1493,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 5
+  m_Height: 20
   m_Direction: 0
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &8942729522455110004
 GameObject:
   m_ObjectHideFlags: 0
