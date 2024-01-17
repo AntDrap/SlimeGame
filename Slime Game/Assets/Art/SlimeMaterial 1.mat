@@ -13,7 +13,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _SKINTEXTURE_ROCKY
+  - _SKINTEXTURE_WAVY
   m_InvalidKeywords:
   - _BOTTOMTEXTURE_STATIC
   - _MOOD_HAPPY
@@ -132,6 +132,7 @@ Material:
     - _BOTTOMTEXTURE: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _Boolean: 1
     - _Brightness: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -146,7 +147,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientAmount: 2.5
+    - _GradientAmount: 3
     - _GradientOffset: -0.3
     - _Height: 300
     - _InitialOffset: 2.5
@@ -159,7 +160,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SKINTEXTURE: 3
+    - _SKINTEXTURE: 2
     - _Shine: 29.83
     - _SkinDensity: 12
     - _SkinHeight: -0.83
@@ -175,7 +176,9 @@ Material:
     - _a: 2
     - _brightness: 1
     - _gradientOffset: 0.62
-    - _shine: 5
+    - _normalStrength: 1
+    - _shine: 1
+    - _shineStrength: 1
     - _skinDensity: 100
     - _skinHeight: 6
     m_Colors:
@@ -185,8 +188,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TopColor: {r: 0, g: 0.17324588, b: 1, a: 1}
-    - _bottomColor: {r: 0, g: 1, b: 0.08948994, a: 1}
-    - _topColor: {r: 0, g: 0, b: 1, a: 1}
+    - _bottomColor: {r: 0, g: 0.3528534, b: 0.3764706, a: 1}
+    - _topColor: {r: 0.7735849, g: 0, b: 0.37805936, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5285400827406042885
 MonoBehaviour:

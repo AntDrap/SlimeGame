@@ -301,7 +301,7 @@ MonoBehaviour:
     m_Bits: 128
   displaySlime: 0
   bounciness: 15000
-  solidity: 300
+  solidity: 500
   springs:
   - {fileID: 7642817823239201942}
   - {fileID: 5041212397058140852}

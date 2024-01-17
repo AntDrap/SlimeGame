@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 120;
     }
 
     void Start()
