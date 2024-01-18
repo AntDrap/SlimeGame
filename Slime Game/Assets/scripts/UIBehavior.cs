@@ -7,14 +7,9 @@ using TMPro;
 public class UIBehavior : MonoBehaviour
 {
     public GameObject mainGameUIHolder;
-    public GameObject slimeUIHolder;
-    public Image elementOne, elementTwo;
-    public TextMeshProUGUI slimeName, FPSText;
+    public TextMeshProUGUI FPSText;
 
-    public GameObject inventoryUIHolder, inventorySlotPrefab;
-    public RectTransform inventoryPanel;
-
-    public Sprite[] elementIcons;
+    public UIPanelBehavior[] UIPanels;
 
     public static UIBehavior instance;
 
@@ -31,9 +26,7 @@ public class UIBehavior : MonoBehaviour
 
     void Start()
     {
-        CloseSlimeUI();
-        CloseInventory();
-
+        DisablePanel();
         StartCoroutine(UpdateFPSCounter());
 
         IEnumerator UpdateFPSCounter()
@@ -82,6 +75,50 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
+    public void EnableInfoPanel(SlimeInformation slime)
+    {
+        EnablePanel(null);
+        SlimeInformationPanel.instance.TogglePanel(slime);
+    }
+
+    public void EnableViewPanel(SlimeInformation slime)
+    {
+        EnablePanel(null);
+        ToggleMainCamera(true);
+        SlimeViewerBehavior.instance.TogglePanel(slime);
+    }
+
+    public void EnablePanel(UIPanelBehavior panelToEnable)
+    {
+        ToggleMainCamera(false);
+        GameController.BlockInput(true);
+        mainGameUIHolder.SetActive(false);
+
+        foreach (UIPanelBehavior panel in UIPanels)
+        {
+            if (panel != panelToEnable)
+            {
+                panel.TogglePanel(false);
+                continue;
+            }
+
+            panel.TogglePanel(true);
+        }
+    }
+
+    public void DisablePanel()
+    {
+        ToggleMainCamera(true);
+        StopLookingAtSlime();
+        GameController.BlockInput(false);
+        mainGameUIHolder.SetActive(true);
+
+        foreach (UIPanelBehavior panel in UIPanels)
+        {
+            panel.TogglePanel(false);
+        }
+    }
+
     public static void ToggleMainCamera(bool toggle)
     {
         if(mainCamera == null)
@@ -96,81 +133,13 @@ public class UIBehavior : MonoBehaviour
         mainCamera.cullingMask = toggle ? cameraDefaultMask : 0;
     }
 
-    public void OpenSlimeUI(SlimeBehavior slime)
-    {
-        mainGameUIHolder.SetActive(false);
-        slimeUIHolder.gameObject.SetActive(true);
-        slimeName.text = slime.slimeInformation.slimeName;
-        if(slime.slimeInformation.elementOne == slime.slimeInformation.elementTwo)
-        {
-            elementOne.gameObject.SetActive(false);
-        }
-        else
-        {
-            elementOne.gameObject.SetActive(true);
-            elementOne.sprite = elementIcons[(int)slime.slimeInformation.elementOne];
-        }
+    public void StopLookingAtSlime() => SlimeBehavior.StopLookingAtSlime();
 
-        elementTwo.sprite = elementIcons[(int)slime.slimeInformation.elementTwo];
-    }
-
-    public void StopLookingAtSlime()
-    {
-        SlimeBehavior.StopLookingAtSlime();
-    }
-
-    public void CloseSlimeUI()
-    {
-        slimeUIHolder.gameObject.SetActive(false);
-        ToggleMainUI(true);
-    }
-
-    public void CatchSlime()
-    {
-        GameController.instance.AddSlimeToCollection();
-    }
+    public void CatchSlime() => GameController.instance.AddSlimeToCollection();
 
     public void ToggleMainUI(bool toggle)
     {
         mainGameUIHolder.SetActive(toggle);
         ToggleMainCamera(toggle);
-    }
-
-    public void OpenInventory()
-    {
-        GameController.BlockInput(true);
-        ToggleMainUI(false);
-        inventoryUIHolder.SetActive(true);
-        ToggleMainCamera(false);
-
-        int index = 0;
-
-        foreach(SlimeInformation slimeInformation in SaveManager.GetPlayerSlimes())
-        {
-            if(inventoryPanel.childCount > index)
-            {
-                inventoryPanel.GetChild(index).gameObject.SetActive(true);
-                inventoryPanel.GetChild(index).GetComponent<SlimeInventorySlotBehavior>().SetSlime(slimeInformation);
-            }
-            else
-            {
-                Instantiate(inventorySlotPrefab, inventoryPanel).GetComponent<SlimeInventorySlotBehavior>().SetSlime(slimeInformation);
-            }
-
-            index++;
-        }
-
-        while(index < inventoryPanel.childCount)
-        {
-            index++;
-            inventoryPanel.GetChild(index).gameObject.SetActive(false);
-        }
-    }
-
-    public void CloseInventory()
-    {
-        inventoryUIHolder.SetActive(false);
-        ToggleMainUI(true);
-        GameController.BlockInput(false);
     }
 }

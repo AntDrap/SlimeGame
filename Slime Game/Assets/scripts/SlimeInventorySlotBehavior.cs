@@ -11,6 +11,9 @@ public class SlimeInventorySlotBehavior : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI slimeName;
     public Sprite[] elementIcons;
 
+    public enum Mode { Inventory, BreederLeft, BreederRight }
+    public Mode currentMode;
+
     protected SlimeInformation currentSlime;
 
     public virtual void Start()
@@ -18,8 +21,9 @@ public class SlimeInventorySlotBehavior : MonoBehaviour, IPointerClickHandler
         ToggleDisableOverlay(false);
     }
 
-    public virtual void SetSlime(SlimeInformation slime)
+    public virtual void SetSlime(SlimeInformation slime, Mode mode)
     {
+        currentMode = mode;
         currentSlime = slime;
         slimeName.text = slime.slimeName;
         if (slime.elementOne == slime.elementTwo)
@@ -46,6 +50,17 @@ public class SlimeInventorySlotBehavior : MonoBehaviour, IPointerClickHandler
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-        SlimeInformationPanel.instance.SetSlime(currentSlime);
+        switch (currentMode)
+        {
+            case Mode.Inventory:
+                SlimeInformationPanel.instance.TogglePanel(currentSlime);
+                break;
+            case Mode.BreederLeft:
+                BreederBehavior.instance.SetSlime(true, currentSlime);
+                break;
+            case Mode.BreederRight:
+                BreederBehavior.instance.SetSlime(false, currentSlime);
+                break;
+        }
     }
 }

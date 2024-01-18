@@ -60,7 +60,7 @@ public class SlimeBehavior : MonoBehaviour
     {
         if (GameController.instance.currentSlimeBeingLookedAt) { return; }
         GameController.instance.currentSlimeBeingLookedAt = slimeBehavior;
-        UIBehavior.instance.OpenSlimeUI(slimeBehavior);
+        UIBehavior.instance.EnableViewPanel(slimeBehavior.slimeInformation);
         GameController.instance.MoveCamera(slimeBehavior.cameraPosition);
 
         slimeBehavior.beingLookedAt = true;
@@ -68,7 +68,8 @@ public class SlimeBehavior : MonoBehaviour
 
     public static void StopLookingAtSlime()
     {
-        UIBehavior.instance.CloseSlimeUI();
+        if(GameController.instance.currentSlimeBeingLookedAt == null) { return; }
+
         GameController.instance.currentSlimeBeingLookedAt.beingLookedAt = false;
         GameController.instance.currentSlimeBeingLookedAt = null;
         GameController.instance.MoveCamera();
@@ -278,8 +279,8 @@ public class SlimeInformation
         { SlimeElement.Moon, new List<SlimeElement>() { SlimeElement.Water, SlimeElement.Earth } },
     };
 
-    private const float SAME_ELEMENT_CHANCE = 45;
-    private const float ALLY_ELEMENT_CHANCE = 30;
+    private const float SAME_ELEMENT_CHANCE = 40;
+    private const float ALLY_ELEMENT_CHANCE = 35;
     private const float NEUTRAL_ELEMENT_CHANCE = 20;
 
     public struct StatRange
@@ -364,13 +365,13 @@ public class SlimeInformation
         elementTwo = slimeElements[1].Item1;
         bottomColor = slimeElements[1].Item2;
 
-        slimeName = parentOne.slimeName.Split(" ")[0] + " " + parentTwo.slimeName.Split(" ")[1];
-
         slimeTexture = (UnityEngine.Random.Range(0,2) == 0 ? parentOne.slimeTexture : parentTwo.slimeTexture);
 
         size = statRanges[nameof(size)].GenerateFloat(parentOne.size, parentTwo.size);
 
         skinTexture = new SkinTexture[] { parentOne.skinTexture, parentTwo.skinTexture }[UnityEngine.Random.Range(0, 2)];
+
+        slimeName = GameController.instance.slimeElementalData.GetName(elementOne, elementTwo);
     }
 
     public void ChangeGenetics(SlimeInformation baseGenetics)
@@ -445,6 +446,16 @@ public class SlimeInformation
 
         Dictionary<SlimeElement, List<float[]>> tempDictionary;
         List<SlimeElement> slimeElements;
+
+        if (allElementTuples == null)
+        {
+            allElementTuples = new List<Tuple<SlimeElement, float[]>>();
+
+            for (int i = 0; i < Enum.GetNames(typeof(SlimeElement)).Length; i++)
+            {
+                allElementTuples.Add(new Tuple<SlimeElement, float[]>((SlimeElement)i, null));
+            }
+        }
 
         bool isAllElements = elements.Count == allElementTuples.Count;
 

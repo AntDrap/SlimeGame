@@ -90,7 +90,7 @@ public class PlayerInformation
     public bool AddSlimeToInventory(SlimeInformation slime)
     {
         if(slimesOwned.Count >= slimeCapacity) { return false; }
-        SlimeInformationPanel.instance.SetSlime(slime);
+        SlimeInformationPanel.instance.TogglePanel(slime);
         slimesOwned.Add(slime);
         return true;
     }

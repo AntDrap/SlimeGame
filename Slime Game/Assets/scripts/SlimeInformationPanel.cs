@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlimeInformationPanel : MonoBehaviour
+public class SlimeInformationPanel : UIPanelBehavior
 {
     public RenderTexture renderTexture;
     public Image elementOne, elementTwo;
@@ -31,16 +31,20 @@ public class SlimeInformationPanel : MonoBehaviour
 
     public void Start()
     {
-        gameObject.SetActive(false);
         slimeCamera.gameObject.SetActive(false);
         renderTexture.DiscardContents(true, true);
     }
 
-    public void SetSlime(SlimeInformation slime)
+    public override void TogglePanel(bool toggle)
     {
-        gameObject.SetActive(true);
-        UIBehavior.instance.ToggleMainUI(false);
-        slimeCamera.gameObject.SetActive(true);
+        gameObject.SetActive(toggle);
+        slimeCamera.gameObject.SetActive(toggle);
+        renderTexture.DiscardContents(true, true);
+    }
+
+    public virtual void TogglePanel(SlimeInformation slime)
+    {
+        TogglePanel(true);
 
         slimeName.text = slime.slimeName;
         displaySlime.transform.position += Vector3.up;
@@ -66,22 +70,5 @@ public class SlimeInformationPanel : MonoBehaviour
 
         slimeDescription.text += "Size: " + slimeSizeText[intSlimeSize] + "\n";
         slimeDescription.text += "Texture: " + slime.skinTexture.ToString();
-    }
-
-    private void OnDisable()
-    {
-        if(!UIBehavior.instance.inventoryUIHolder.activeSelf)
-        {
-            UIBehavior.instance.ToggleMainUI(true);
-        }
-
-        UIBehavior.ToggleMainCamera(true);
-        slimeCamera.gameObject.SetActive(false);
-        renderTexture.DiscardContents(true, true);
-    }
-
-    private void OnEnable()
-    {
-        UIBehavior.ToggleMainCamera(false);
     }
 }
