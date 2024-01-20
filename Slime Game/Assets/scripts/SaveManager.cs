@@ -41,6 +41,20 @@ public static class SaveManager
         return returnValue;
     }
 
+    public static bool RemoveSlimeFromPlayerInventory(SlimeInformation slime)
+    {
+        bool returnValue = GetPlayerInformation().RemoveSlimeFromInventory(slime);
+        SaveData();
+        return returnValue;
+    }
+
+    public static bool ChangeMoney(int amount)
+    {
+        bool returnValue = GetPlayerInformation().ChangeMoney(amount);
+        SaveData();
+        return returnValue;
+    }
+
     public static void LoadData()
     {
         if(!File.Exists(gameSavePath) || !File.Exists(fieldSavePath))
@@ -81,6 +95,8 @@ public static class SaveManager
 public class PlayerInformation
 {
     [JsonProperty]
+    private int money = 0;
+    [JsonProperty]
     private DateTime lastPlayerLogin = DateTime.MinValue;
     [JsonProperty]
     private int slimeCapacity = 100;
@@ -92,6 +108,12 @@ public class PlayerInformation
         if(slimesOwned.Count >= slimeCapacity) { return false; }
         SlimeInformationPanel.instance.TogglePanel(slime);
         slimesOwned.Add(slime);
+        return true;
+    }
+    public bool RemoveSlimeFromInventory(SlimeInformation slime)
+    {
+        if (!slimesOwned.Contains(slime)) { return false; }
+        slimesOwned.Remove(slime);
         return true;
     }
 
@@ -111,6 +133,17 @@ public class PlayerInformation
         if(lastPlayerLogin.Day != newTime.Day || lastPlayerLogin.Month != newTime.Month || lastPlayerLogin.Year != newTime.Year)
         {
             lastPlayerLogin = newTime;
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool ChangeMoney(int amount)
+    {
+        if(amount > 0 || money >= Mathf.Abs(amount))
+        {
+            money = Mathf.Clamp(money + amount, 0, int.MaxValue);
             return true;
         }
 

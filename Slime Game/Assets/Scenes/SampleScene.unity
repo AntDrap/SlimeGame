@@ -1151,30 +1151,18 @@ MonoBehaviour:
     slimeTexture: 
     elementOne: 0
     elementTwo: 0
-    topColor:
-    - 1
-    - 1
-    - 1
-    bottomColor:
-    - 1
-    - 1
-    - 1
-    size: 1
+    topColor: 
+    bottomColor: 
+    size: 0
     skinTexture: 0
   rightSlime:
     slimeName: 
     slimeTexture: 
     elementOne: 0
     elementTwo: 0
-    topColor:
-    - 1
-    - 1
-    - 1
-    bottomColor:
-    - 1
-    - 1
-    - 1
-    size: 1
+    topColor: 
+    bottomColor: 
+    size: 0
     skinTexture: 0
   slotPrefab: {fileID: 872270364826716738, guid: 2265f5020ae0b464bb31395fced76312,
     type: 3}
@@ -2656,7 +2644,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 359922512}
   m_HandleRect: {fileID: 359922511}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4187,7 +4175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inventory
+  m_text: Breeding
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 291d6de2c54a10b4d9f615e23ec7e3c9, type: 2}
   m_sharedMaterial: {fileID: -2159793887939442294, guid: 291d6de2c54a10b4d9f615e23ec7e3c9,
@@ -4605,7 +4593,7 @@ MonoBehaviour:
   m_fontSizeBase: 96
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 48
+  m_fontSizeMin: 32
   m_fontSizeMax: 96
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -5809,7 +5797,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1415451609}
   m_HandleRect: {fileID: 1415451608}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

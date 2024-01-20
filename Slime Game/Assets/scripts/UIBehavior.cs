@@ -75,6 +75,11 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape)) { DisablePanel(); }
+    }
+
     public void EnableInfoPanel(SlimeInformation slime)
     {
         EnablePanel(null);

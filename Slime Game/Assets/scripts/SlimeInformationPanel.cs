@@ -64,11 +64,8 @@ public class SlimeInformationPanel : UIPanelBehavior
 
         slimeDescription.text = "";
 
-        float slimeSize = slime.size;
-        slimeSize *= 2;
-        int intSlimeSize = Mathf.RoundToInt(slimeSize) - 1;
-
-        slimeDescription.text += "Size: " + slimeSizeText[intSlimeSize] + "\n";
-        slimeDescription.text += "Texture: " + slime.skinTexture.ToString();
+        slimeDescription.text += "Size: " + slimeSizeText[slime.size] + "\n";
+        slimeDescription.text += "Texture: " + slime.skinTexture.ToString() + "\n";
+        slimeDescription.text += "Value: $" + slime.DetermineValue();
     }
 }

@@ -28,6 +28,8 @@ public class SlimeBehavior : MonoBehaviour
     private bool beingLookedAt = false;
     private const float REPEL_FORCE = 20;
 
+    private float[] slimeSizes = new float[] { 1f, 1.25f, 1.5f, 1.75f, 2f};
+
     void Start()
     {
         slimeMaterial = meshRenderer.material;
@@ -106,7 +108,7 @@ public class SlimeBehavior : MonoBehaviour
 
         slimeMaterial.SetTexture("_" + nameof(SlimeInformation.slimeTexture), GameController.instance.slimeElementalData.GetFace(slimeInformation.slimeTexture));
 
-        transform.localScale = Vector3.one * slimeInformation.size;
+        transform.localScale = Vector3.one * slimeSizes[slimeInformation.size];
 
         for(int i = 0; i < springs.Length; i++)
         {
@@ -239,25 +241,17 @@ public class SlimeInformation
     public string slimeName;
     public string slimeTexture;
 
-    public const float COLOR_MUTATION_PERCENT = 0.20f;
-    public const float FLOAT_MUTATION_PERCENT = 0.20f;
-
     public enum SkinTexture { Smooth, Rough, Wavy, Rocky}
 
     public enum SlimeElement { Fire, Water, Earth, Air, Sun, Moon }
     public SlimeElement elementOne, elementTwo;
 
-    public float[] topColor = new float[] { 1, 1, 1 };
-    public float[] bottomColor = new float[] { 1, 1, 1 };
+    public string topColor = "#FFFFFF";
+    public string bottomColor = "#FFFFFF";
 
-    public float size;
+    public int size = 0;
 
-    public SkinTexture skinTexture;
-
-    private Dictionary<string, StatRange> statRanges = new Dictionary<string, StatRange>()
-    {
-        {nameof(size), new StatRange(1, 0.5f, 2.5f, 0.2f) },
-    };
+    public SkinTexture skinTexture = SkinTexture.Smooth;
 
     private static Dictionary<SlimeElement, SlimeElement> enemyElements = new Dictionary<SlimeElement, SlimeElement>
     {
@@ -283,47 +277,9 @@ public class SlimeInformation
     private const float ALLY_ELEMENT_CHANCE = 35;
     private const float NEUTRAL_ELEMENT_CHANCE = 20;
 
-    public struct StatRange
-    {
-        public float defaultValue;
-        public float min;
-        public float max;
-        public float mutation;
-        private const int round = 100;
-
-        public StatRange(float defaultValue, float min, float max, float mutation)
-        {
-            this.defaultValue = defaultValue;
-            this.min = min;
-            this.max = max;
-            this.mutation = mutation;
-        }
-
-        public float Clamp(float c)
-        {
-            float num = UnityEngine.Random.Range(MathF.Max(min, c * (1 - mutation)), MathF.Min(max, c * (1 + mutation)));
-            num = Mathf.Round(num * round) / round;
-            return num;
-        }
-
-        public float GetRandom()
-        {
-            float num = UnityEngine.Random.Range(min, max);
-            num = Mathf.Round(num * round) / round;
-            return num;
-        }
-        public float GenerateFloat(float float1, float float2)
-        {
-            float t = UnityEngine.Random.Range(0f, 1f);
-            float num = Mathf.Lerp(float1, float2, t);
-            num = Mathf.Round(num * round) / round;
-            return Clamp(num);
-        }
-    }
-
     public void Randomize()
     {
-        Tuple<SlimeElement, float[]>[] slimeElements = DetermineElement();
+        Tuple<SlimeElement, string>[] slimeElements = DetermineElement();
 
         elementOne = slimeElements[0].Item1;
         elementTwo = slimeElements[1].Item1;
@@ -333,29 +289,16 @@ public class SlimeInformation
         slimeTexture = GameController.instance.slimeElementalData.GetFace(elementOne, elementTwo);
         skinTexture = (SkinTexture)(UnityEngine.Random.Range(0, 4));
 
-        size = statRanges[nameof(size)].GetRandom();
+        size = UnityEngine.Random.Range(0, 5);
 
         slimeName = GameController.instance.slimeElementalData.GetName(elementOne, elementTwo);
     }
 
-    public SlimeInformation()
-    {
-        topColor = new float[] { 1, 1, 1 };
-        bottomColor = new float[] { 1, 1, 1 };
-
-        skinTexture = SkinTexture.Smooth;
-
-        size = statRanges[nameof(size)].defaultValue;
-    }
-
-    public SlimeInformation(SlimeInformation baseGenetics)
-    {
-        ChangeGenetics(baseGenetics);
-    }
+    public SlimeInformation(SlimeInformation baseGenetics) => ChangeGenetics(baseGenetics);
 
     public SlimeInformation(SlimeInformation parentOne, SlimeInformation parentTwo)
     {
-        Tuple<SlimeElement, float[]>[] slimeElements = DetermineElement(parentOne, parentTwo);
+        Tuple<SlimeElement, string>[] slimeElements = DetermineElement(parentOne, parentTwo);
 
         int chosenNum = UnityEngine.Random.Range(0, 4);
         elementOne = slimeElements[0].Item1;
@@ -367,7 +310,20 @@ public class SlimeInformation
 
         slimeTexture = (UnityEngine.Random.Range(0,2) == 0 ? parentOne.slimeTexture : parentTwo.slimeTexture);
 
-        size = statRanges[nameof(size)].GenerateFloat(parentOne.size, parentTwo.size);
+        int random = UnityEngine.Random.Range(0, 3);
+
+        if(random == 0)
+        {
+            size = parentOne.size;
+        }
+        else if(random == 1)
+        {
+            size = parentTwo.size;
+        }
+        else
+        {
+            size = (int)((parentOne.size + parentTwo.size) / 2);
+        }
 
         skinTexture = new SkinTexture[] { parentOne.skinTexture, parentTwo.skinTexture }[UnityEngine.Random.Range(0, 2)];
 
@@ -384,76 +340,100 @@ public class SlimeInformation
         size = baseGenetics.size;
     }
 
-    public Tuple<SlimeElement, SlimeElement> GetElement()
-    {
-        return new Tuple<SlimeElement, SlimeElement>(elementOne, elementTwo);
-    }
-
-    public static float[] ConvertColor(Color color)
-    {
-        return new float[] { color.r, color.g, color.b };
-    }
+    public Tuple<SlimeElement, SlimeElement> GetElement() => new Tuple<SlimeElement, SlimeElement>(elementOne, elementTwo);
+    public static string ConvertColor(Color color) => "#" + ColorUtility.ToHtmlStringRGB(color);
 
     public Color GetTopColor()
     {
-        return new Color(topColor[0], topColor[1], topColor[2]);
+        ColorUtility.TryParseHtmlString(topColor, out Color newColor);
+        return newColor;
     }
 
     public Color GetBottomColor()
     {
-        return new Color(bottomColor[0], bottomColor[1], bottomColor[2]);
+        ColorUtility.TryParseHtmlString(bottomColor, out Color newColor);
+        return newColor;
     }
 
-    public static Dictionary<SlimeElement, List<float[]>> allElementsDictionary;
+    public int DetermineValue()
+    {
+        float value = 100;
+
+        if(elementOne == SlimeElement.Sun || elementTwo == SlimeElement.Moon)
+        {
+            value += 50;
+        }
+
+        if (elementTwo == SlimeElement.Sun || elementTwo == SlimeElement.Moon)
+        {
+            value += 50;
+        }
+
+        value += 50 * ((int)skinTexture + 1);
+        value += 50 * (size + 1);
+
+        if (allyElements[elementOne].Contains(elementTwo))
+        {
+            value *= 2;
+        }
+        else if(enemyElements[elementOne] == elementTwo)
+        {
+            value *= 3;
+        }
+
+        return Mathf.RoundToInt(value);
+    }
+
+    public static Dictionary<SlimeElement, List<string>> allElementsDictionary;
     public static List<SlimeElement> allElementsList;
-    public static List<Tuple<SlimeElement, float[]>> allElementTuples;
+    public static List<Tuple<SlimeElement, string>> allElementTuples;
 
     public static Dictionary<List<SlimeElement>, List<Tuple<SlimeElement, SlimeElement>>> alliedPairs;
     public static Dictionary<List<SlimeElement>, List<Tuple<SlimeElement, SlimeElement>>> neutralPairs;
     public static Dictionary<List<SlimeElement>, List<Tuple<SlimeElement, SlimeElement>>> enemiedPairs;
 
-    private static Tuple<SlimeElement, float[]>[] DetermineElement()
+    private static Tuple<SlimeElement, string>[] DetermineElement()
     {
         if(allElementTuples == null)
         {
-            allElementTuples = new List<Tuple<SlimeElement, float[]>>();
+            allElementTuples = new List<Tuple<SlimeElement, string>>();
 
             for(int i = 0; i < Enum.GetNames(typeof(SlimeElement)).Length; i++)
             {
-                allElementTuples.Add(new Tuple<SlimeElement, float[]>((SlimeElement)i, null));
+                allElementTuples.Add(new Tuple<SlimeElement, string>((SlimeElement)i, null));
             }
         }
 
         return DetermineElement(allElementTuples);
     }
 
-    private static Tuple<SlimeElement, float[]>[] DetermineElement(SlimeInformation parentOne, SlimeInformation parentTwo)
+    private static Tuple<SlimeElement, string>[] DetermineElement(SlimeInformation parentOne, SlimeInformation parentTwo)
     {
-        List<Tuple<SlimeElement, float[]>> outArray = new List<Tuple<SlimeElement, float[]>>
+        List<Tuple<SlimeElement, string>> outArray = new List<Tuple<SlimeElement, string>>
         {
-            new Tuple<SlimeElement, float[]>(parentOne.elementOne, parentOne.topColor),
-            new Tuple<SlimeElement, float[]>(parentOne.elementTwo, parentOne.bottomColor),
-            new Tuple<SlimeElement, float[]>(parentTwo.elementOne, parentTwo.topColor),
-            new Tuple<SlimeElement, float[]>(parentTwo.elementTwo, parentTwo.bottomColor)
+            new Tuple<SlimeElement, string>(parentOne.elementOne, parentOne.topColor),
+            new Tuple<SlimeElement, string>(parentOne.elementTwo, parentOne.bottomColor),
+            new Tuple<SlimeElement, string>(parentTwo.elementOne, parentTwo.topColor),
+            new Tuple<SlimeElement, string>(parentTwo.elementTwo, parentTwo.bottomColor)
         };
 
         return DetermineElement(outArray);
     }
 
-    private static Tuple<SlimeElement, float[]>[] DetermineElement(List<Tuple<SlimeElement, float[]>> elements)
+    private static Tuple<SlimeElement, string>[] DetermineElement(List<Tuple<SlimeElement, string>> elements)
     {
-        Tuple<SlimeElement, float[]>[] outArray = new Tuple<SlimeElement, float[]>[2];
+        Tuple<SlimeElement, string>[] outArray = new Tuple<SlimeElement, string>[2];
 
-        Dictionary<SlimeElement, List<float[]>> tempDictionary;
+        Dictionary<SlimeElement, List<string>> tempDictionary;
         List<SlimeElement> slimeElements;
 
         if (allElementTuples == null)
         {
-            allElementTuples = new List<Tuple<SlimeElement, float[]>>();
+            allElementTuples = new List<Tuple<SlimeElement, string>>();
 
             for (int i = 0; i < Enum.GetNames(typeof(SlimeElement)).Length; i++)
             {
-                allElementTuples.Add(new Tuple<SlimeElement, float[]>((SlimeElement)i, null));
+                allElementTuples.Add(new Tuple<SlimeElement, string>((SlimeElement)i, null));
             }
         }
 
@@ -466,10 +446,10 @@ public class SlimeInformation
         }
         else
         {
-            tempDictionary = new Dictionary<SlimeElement, List<float[]>>();
+            tempDictionary = new Dictionary<SlimeElement, List<string>>();
             slimeElements = new List<SlimeElement>();
 
-            foreach (Tuple<SlimeElement, float[]> tuple in elements)
+            foreach (Tuple<SlimeElement, string> tuple in elements)
             {
                 if (!slimeElements.Contains(tuple.Item1))
                 {
@@ -482,7 +462,7 @@ public class SlimeInformation
                 }
                 else
                 {
-                    tempDictionary.Add(tuple.Item1, new List<float[]>() { tuple.Item2 });
+                    tempDictionary.Add(tuple.Item1, new List<string>() { tuple.Item2 });
                 }
             }
 
@@ -519,8 +499,8 @@ public class SlimeInformation
             chosenElements = new Tuple<SlimeElement, SlimeElement>(chosenElements.Item2, chosenElements.Item1);
         }
 
-        outArray[0] = new Tuple<SlimeElement, float[]>(chosenElements.Item1, tempDictionary[chosenElements.Item1][UnityEngine.Random.Range(0, tempDictionary[chosenElements.Item1].Count)]);
-        outArray[1] = new Tuple<SlimeElement, float[]>(chosenElements.Item2, tempDictionary[chosenElements.Item2][UnityEngine.Random.Range(0, tempDictionary[chosenElements.Item2].Count)]);
+        outArray[0] = new Tuple<SlimeElement, string>(chosenElements.Item1, tempDictionary[chosenElements.Item1][UnityEngine.Random.Range(0, tempDictionary[chosenElements.Item1].Count)]);
+        outArray[1] = new Tuple<SlimeElement, string>(chosenElements.Item2, tempDictionary[chosenElements.Item2][UnityEngine.Random.Range(0, tempDictionary[chosenElements.Item2].Count)]);
 
         return outArray;
 
